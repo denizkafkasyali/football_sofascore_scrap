@@ -12,7 +12,7 @@ class PuandurumuSpider(scrapy.Spider):
     allowed_domains = ["www.sofascore.com"]
     
     def start_requests(self):    
-        with open('/Users/icy/Desktop/scrapping_scrapy_football/football/football/spiders/sofa_temiz_urls/filtered_week_match_links.txt', 'r') as file:
+        with open('C:/Users/MDK/Documents/GitHub/football_sofascore_scrap/football/football/spiders/sofa_temiz_urls/league_matches_unscraped.txt', 'r') as file:
             urls = file.readlines()
              # Bin bin seçerek devam et,  yüksek seçimler sıknııtılı ram yetmiyor gibi sorunlar çıkıyor.
             for url in urls:  
@@ -37,16 +37,17 @@ class PuandurumuSpider(scrapy.Spider):
         await page.close()  #async pagecoroutine calıssın diye.
         parse = {} 
         # a'ları döner
-        puan_durumu_takimlar = response.css('div.Box.clAhaB.Col.gcPBSH>div:nth-child(3)>div.Box.gPbxDB>div.Box.jilUFb>div.Box.klGMtt>div.Box.iHEIFv>div.TabPanel.bpHovE>div')
-        siralar = puan_durumu_takimlar.css('a>div>div:nth-child(1) ::text').getall() #>div.Box.Flex.kQcHaX.jLRkRA.sc-ihgnxF.kJqYUe>div:nth-child(1)
-        takimlar = puan_durumu_takimlar.css('a>div>div.Box.ljKzDM ::text').getall()
-        puanlar = puan_durumu_takimlar.css('a>div>div:last-child>bdi div::text').getall()
-        sol3  =  response.css('div.Box.cyOxcH.Page.eWDDro>div.Box.Flex.ggRYVx.cQgcrM.Grid.dRBNa>div.Box.kUNcqi.Col.cxAhno>div.Box.kVEXeF>div.Box.jJMKoa>div.Box.Flex.dZNeJi.bnpRyo') 
-        home_team = sol3.css('div:nth-child(1) bdi ::text').get()
-        away_team = sol3.css('div:nth-child(3) bdi ::text').get()
-
+        
 
         try:
+            puan_durumu_takimlar = response.css('div.Box.clAhaB.Col.gcPBSH>div:nth-child(3)>div.Box.gPbxDB>div.Box.jilUFb>div.Box.klGMtt>div.Box.iHEIFv>div.TabPanel.bpHovE>div')
+            siralar = puan_durumu_takimlar.css('a>div>div:nth-child(1) ::text').getall() #>div.Box.Flex.kQcHaX.jLRkRA.sc-ihgnxF.kJqYUe>div:nth-child(1)
+            takimlar = puan_durumu_takimlar.css('a>div>div.Box.ljKzDM ::text').getall()
+            puanlar = puan_durumu_takimlar.css('a>div>div:last-child>bdi div::text').getall()
+            sol3  =  response.css('div.Box.cyOxcH.Page.eWDDro>div.Box.Flex.ggRYVx.cQgcrM.Grid.dRBNa>div.Box.kUNcqi.Col.cxAhno>div.Box.kVEXeF>div.Box.jJMKoa>div.Box.Flex.dZNeJi.bnpRyo') 
+            home_team = sol3.css('div:nth-child(1) bdi ::text').get()
+            away_team = sol3.css('div:nth-child(3) bdi ::text').get()
+
             # parse['sira'] = siralar
             # parse['takim'] = takimlar 
             # parse['puan'] = puanlar 
